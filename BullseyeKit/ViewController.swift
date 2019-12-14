@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let roundedValue = slider.value.rounded()
         currentValue = Int(roundedValue)
-        startNewRound()
+        startNewGame()
     }
 
     /// The showAlert method initializes the properties needed for an alert such as the message, title, and
@@ -103,5 +103,12 @@ class ViewController: UIViewController {
         targetLabel.text = String(targetValue)
         scoreLabel.text = String(score)
         roundLabel.text = String(round)
+    }
+
+    /// The startNewGame method resets the round and score. The labels are also updated.
+    @IBAction func startNewGame() {
+        round = 0
+        score = 0
+        startNewRound()
     }
 }
