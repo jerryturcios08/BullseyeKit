@@ -33,6 +33,22 @@ class ViewController: UIViewController {
         let roundedValue = slider.value.rounded()
         currentValue = Int(roundedValue)
         startNewGame()
+
+        // Customizes slider
+        let thumbImageNormal = #imageLiteral(resourceName: "SliderThumb-Normal")
+        slider.setThumbImage(thumbImageNormal, for: .normal)
+
+        let thumbImageHighlighted = #imageLiteral(resourceName: "SliderThumb-Highlighted")
+        slider.setThumbImage(thumbImageHighlighted, for: .highlighted)
+
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        let trackLeft = #imageLiteral(resourceName: "SliderTrackLeft")
+        let trackLeftRes = trackLeft.resizableImage(withCapInsets: insets)
+        slider.setMinimumTrackImage(trackLeftRes, for: .normal)
+
+        let trackRight = #imageLiteral(resourceName: "SliderTrackRight")
+        let trackRightRes = trackRight.resizableImage(withCapInsets: insets)
+        slider.setMaximumTrackImage(trackRightRes, for: .normal)
     }
 
     /// The showAlert method initializes the properties needed for an alert such as the message, title, and
