@@ -15,10 +15,15 @@ import UIKit
 /// - Version: 0.1
 /// - Since: December 12th, 2019
 class ViewController: UIViewController {
-    var currentValue: Int = 0
-    var targetValue: Int = 0
+    var currentValue = 0
+    var targetValue = 0
+    var score = 0
+    var round = 0
+
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var targetLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var roundLabel: UILabel!
 
     /// The viewDidLoad method overrides the base respective method from UIViewController. The
     /// method runs code when the view loads. The slider's value is rounded, and the value is used to
@@ -33,11 +38,33 @@ class ViewController: UIViewController {
     /// The showAlert method initializes the properties needed for an alert such as the message, title, and
     /// the style of the alert box. The alert is then displayed, and a new round is created.
     @IBAction func showAlert() {
-        let message = "The value of the slider is now: \(currentValue)" +
-            "\nThe target value is: \(targetValue)"
+        let difference = abs(targetValue - currentValue)
+        var points = 100 - difference
+
+        score += points
+
+        let title: String
+
+        // Checks the difference before modifying the title
+        if difference == 0 {
+            title = "Perfect!"
+            points += 100
+        } else if difference < 5 {
+            title = "You almost had it!"
+            if difference == 1 {
+                points += 50
+            }
+        } else if difference < 10 {
+            title = "Pretty good!"
+        } else {
+            title = "Not even close..."
+        }
+
+        let msg = points == 1 ? "\(points) point" : "\(points) points"
+        let message = "You scored \(msg)"
 
         let alert = UIAlertController(
-            title: "Ok",
+            title: title,
             message: message,
             preferredStyle: .alert
         )
@@ -62,14 +89,19 @@ class ViewController: UIViewController {
     /// The startNewRound method initializes a new round by randomly generating a new target value.
     /// The UI labels are also updated.
     func startNewRound() {
+        round += 1
         targetValue = Int.random(in: 1...100)
+
         currentValue = 50
         slider.value = Float(currentValue)
+
         updateLabels()
     }
 
     /// The updateLabels method updates the labels in the view.
     func updateLabels() {
         targetLabel.text = String(targetValue)
+        scoreLabel.text = String(score)
+        roundLabel.text = String(round)
     }
 }
