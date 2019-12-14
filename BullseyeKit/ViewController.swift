@@ -60,8 +60,8 @@ class ViewController: UIViewController {
             title = "Not even close..."
         }
 
-        let msg = points == 1 ? "\(points) point" : "\(points) points"
-        let message = "You scored \(msg)"
+        let scoreMsg = points == 1 ? "\(points) point" : "\(points) points"
+        let message = "You scored \(scoreMsg)"
 
         let alert = UIAlertController(
             title: title,
@@ -69,13 +69,13 @@ class ViewController: UIViewController {
             preferredStyle: .alert
         )
 
-        let action = UIAlertAction(
-            title: "Awesome!", style: .default, handler: nil
-        )
+        let action = UIAlertAction(title: "OK", style: .default, handler: {
+            action in
+            self.startNewRound()
+        })
 
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
-        startNewRound()
     }
 
     /// The sliderMoved method rounds the slider's value and assigns that number to the current value.
